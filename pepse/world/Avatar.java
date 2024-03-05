@@ -118,23 +118,47 @@ public class Avatar extends GameObject {
         // TODO HANDLE RIGHT AND LEFT TOGETHER
         // TODO GRAPHIC ENERGY
         transform().setVelocityX(xVel);
-        if(inputListener.isKeyPressed(KeyEvent.VK_SPACE) && getVelocity().y() == 0 && handleJump()){
+        if (inputListener.isKeyPressed(KeyEvent.VK_SPACE) && getVelocity().y() == 0 && handleJump()) {
             transform().setVelocityY(VELOCITY_Y);
         }
-        if (getVelocity().equals(Vector2.ZERO)){
-            energy = Math.min(energy+IDLE_ENERGY,INIT_ENERGY);
+        energyAndAnimationUpdate();
+    }
+
+
+    private void energyAndAnimationUpdate() {
+        ImageRenderable[] listToRenere = null;
+        if (getVelocity().equals(Vector2.ZERO)) {
+            //we are not moving
+            energy = Math.min(energy + IDLE_ENERGY, INIT_ENERGY);
+            renderer().setRenderable(IDLE_ANIMATION);
+        } else {
+            if (getVelocity().x() != 0) {
+                //we are moving on the X axis
+                if (getVelocity().x() < 0 && lastDirection == RIGHT) {
+                    renderer().setIsFlippedHorizontally(true);
+                    lastDirection = LEFT;
+                } else if (getVelocity().x() > 0 && lastDirection == LEFT) {
+                    renderer().setIsFlippedHorizontally(false);
+                    lastDirection =RIGHT;
+                }
+                renderer().setRenderable(RUN_ANIMATION);
+            } else {
+                // we are moving just on the Y axis
+                renderer().setRenderable(JUMP_ANIMATION);
+            }
         }
     }
 
-    private float runChecker(){
+
+    private float runChecker() {
         float xVel = RESTING_POSITION;
-        if(inputListener.isKeyPressed(KeyEvent.VK_LEFT) && handleRun()){
+        if (inputListener.isKeyPressed(KeyEvent.VK_LEFT) && handleRun()) {
             xVel -= VELOCITY_X;
         }
-        if(inputListener.isKeyPressed(KeyEvent.VK_RIGHT) && handleRun()){
-            if (xVel ==RESTING_POSITION){
+        if (inputListener.isKeyPressed(KeyEvent.VK_RIGHT) && handleRun()) {
+            if (xVel == RESTING_POSITION) {
                 xVel += VELOCITY_X;
-            }else { //clicking right and left at the same time
+            } else { //clicking right and left at the same time
                 xVel = RESTING_POSITION;
                 energy += DOUBLE_ACTIONS * RUN_ENERGY;
             }
@@ -143,7 +167,7 @@ public class Avatar extends GameObject {
     }
 
     private boolean handleRun() {
-        if (energy < RUN_ENERGY){
+        if (energy < RUN_ENERGY) {
             return false;
         }
         energy -= RUN_ENERGY;
@@ -151,7 +175,7 @@ public class Avatar extends GameObject {
     }
 
     private boolean handleJump() {
-        if (energy < JUMP_ENERGY){
+        if (energy < JUMP_ENERGY) {
             return false;
         }
         energy -= JUMP_ENERGY;
@@ -165,3 +189,4 @@ public class Avatar extends GameObject {
 
 
 }
+
