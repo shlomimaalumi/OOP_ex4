@@ -10,12 +10,14 @@ import java.awt.Color;
 
 
 public class Terrain {
+    private static final String TERRAIN_TAG = "terrain";
+
+
     private static final float INIT_GROUND_HEIGHT_RATIO = 2 / 3f;
     private static final Color BASE_GROUND_COLOR = new Color(212, 123, 74);
     private static final RectangleRenderable rectangleRenderable =
             new RectangleRenderable(ColorSupplier.approximateColor(BASE_GROUND_COLOR));
     private final float groundHeightAtX0;
-    private static final String TERRAIN_TAG = "terrain";
     private final Vector2 windowDimensions;
 
 

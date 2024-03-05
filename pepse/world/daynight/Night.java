@@ -12,6 +12,7 @@ import java.awt.*;
 
 public class Night {
     private static final String NIGHT_TAG = "night";
+
     private static final float INIT_OPAQUENESS = 0f;
     private static final float MIDNIGHT_OPACITY = 0.5f;
     private static final float HALF = 0.5f;
