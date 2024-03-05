@@ -31,6 +31,11 @@ public class PepseGameManager extends GameManager {
         gameObjects().addGameObject(Night.create(windowController.getWindowDimensions(), CYCLE_LENGTH),
                 Layer.FOREGROUND);
         gameObjects().addGameObject(Sun.create(windowController.getWindowDimensions(), CYCLE_LENGTH));
+        gameObjects().addGameObject(SunHalo.create(Sun.create(windowController.getWindowDimensions(),
+                CYCLE_LENGTH)));
+
+
+
 
     }
 
