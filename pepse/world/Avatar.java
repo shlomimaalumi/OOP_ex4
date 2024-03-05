@@ -5,6 +5,10 @@ import danogl.gui.*;
 import danogl.gui.rendering.AnimationRenderable;
 import danogl.gui.rendering.ImageRenderable;
 import danogl.util.Vector2;
+import pepse.JumpObserver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.awt.event.KeyEvent;
 
@@ -64,6 +68,8 @@ public class Avatar extends GameObject {
     private static final float DOUBLE_ACTIONS = 2f;
 
 
+
+    private List<JumpObserver> jumpObservers;
     private final UserInputListener inputListener;
     private float energy;
     private int state = IDLE_STATE;
@@ -84,6 +90,8 @@ public class Avatar extends GameObject {
         energy = INIT_ENERGY;
         setTag(AVATER_TAG);
         initAnimationsLists(imageReader);
+        jumpObservers = new ArrayList<>();
+
     }
 
     private void initAnimationsLists(ImageReader imageReader) {
@@ -178,8 +186,20 @@ public class Avatar extends GameObject {
         if (energy < JUMP_ENERGY) {
             return false;
         }
+        notifyJumpObservers();
         energy -= JUMP_ENERGY;
         return true;
+    }
+
+
+    public void addJumpObserver(JumpObserver observer) {
+        jumpObservers.add(observer);
+    }
+
+    private void notifyJumpObservers() {
+        for (JumpObserver observer : jumpObservers) {
+            observer.onJump();
+        }
     }
 
 //    private void setAnimation(List<ImageRenderable> animationList){
