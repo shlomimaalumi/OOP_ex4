@@ -16,6 +16,7 @@ import pepse.world.daynight.Night;
 import pepse.world.daynight.Sun;
 import pepse.world.daynight.SunHalo;
 
+
 import java.util.List;
 
 public class PepseGameManager extends GameManager {
@@ -33,12 +34,13 @@ public class PepseGameManager extends GameManager {
         createTerrain(windowController);
         gameObjects().addGameObject(Night.create(windowController.getWindowDimensions(), CYCLE_LENGTH),
                 Layer.FOREGROUND);
-        gameObjects().addGameObject(Sun.create(windowController.getWindowDimensions(), CYCLE_LENGTH));
+        gameObjects().addGameObject(Sun.create(windowController.getWindowDimensions(), CYCLE_LENGTH),
+                Layer.BACKGROUND);
         gameObjects().addGameObject(SunHalo.create(Sun.create(windowController.getWindowDimensions(),
-                CYCLE_LENGTH)));
+                CYCLE_LENGTH)), Layer.BACKGROUND);
 
-
-
+        Avatar avatar= new Avatar(new Vector2(50,50),inputListener,imageReader);
+        gameObjects().addGameObject(avatar);
 
     }
 
