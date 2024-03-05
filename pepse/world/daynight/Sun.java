@@ -18,7 +18,7 @@ public class Sun {
     private static final Color SUN_COLOR = Color.YELLOW;
     private static final float SUN_RADIUS = 30;
     private static final OvalRenderable SUN_CIRCLE = new OvalRenderable(SUN_COLOR);
-    private static final float MIDDLE = 0.5f, HALF = 0.5f;
+    private static final float MIDDLE = 0.5f;
     private static final float HORIZONAL = 0f;
     private static final float CYCLE_RADIUS = 100;
     private static final float INIT_VALUE = 0f;
