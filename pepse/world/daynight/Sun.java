@@ -28,16 +28,6 @@ public class Sun {
             sun.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
             sun.setTag(SUN_TAG);
             SUN_INSTANCE=sun;
-//            new Transition<Float>(
-//                    sun,
-//                    sun.renderer()::setOpaqueness,
-//                    INIT_OPAQUENESS,
-//                    MIDNIGHT_OPACITY,
-//                    Transition.CUBIC_INTERPOLATOR_FLOAT,
-//                    cycleLength * HALF,
-//                    Transition.TransitionType.TRANSITION_BACK_AND_FORTH,
-//                    null);
-//            NIGHT_INSTANCE = night;
         }
         return SUN_INSTANCE;
     }
