@@ -8,10 +8,7 @@ import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
 import danogl.gui.WindowController;
 import danogl.util.Vector2;
-import pepse.world.Avatar;
-import pepse.world.Block;
-import pepse.world.Sky;
-import pepse.world.Terrain;
+import pepse.world.*;
 import pepse.world.daynight.Night;
 import pepse.world.daynight.Sun;
 import pepse.world.daynight.SunHalo;
@@ -51,6 +48,8 @@ public class PepseGameManager extends GameManager {
         for (Tree tree:trees){
             avatar.addJumpObserver(tree);
         }
+        EnergyNumeric energyIndicator = new EnergyNumeric(new Vector2(0,0),new Vector2(100,100),null,avatar::getEnergy);
+        gameObjects().addGameObject(energyIndicator,Layer.UI);
     }
 
     private void createTerrain(WindowController windowController) {

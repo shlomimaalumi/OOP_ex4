@@ -17,7 +17,7 @@ public class Fruit extends GameObject {
     private final GameObjectCollection gameObjects;
     private static final float FRUIT_RADIUS = 30;
     private static final Vector2 FRUIT_DIMENSIONS = new Vector2(FRUIT_RADIUS,FRUIT_RADIUS);
-    private static final float ENERGY_TO_ADD = 100;
+    private static final float ENERGY_TO_ADD = 10;
     private static final int FIRST_COLOR = 0;
 
 

@@ -214,7 +214,9 @@ public class Avatar extends GameObject {
         }
     }
 
-
+    public Float getEnergy() {
+        return energy;
+    }
 
 
 //    private void setAnimation(List<ImageRenderable> animationList){
