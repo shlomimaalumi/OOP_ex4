@@ -25,6 +25,7 @@ public class Sun {
     private static final float FINAL_VALUE = 360f;
 
 
+
     public Sun(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
     }
 

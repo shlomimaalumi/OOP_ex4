@@ -13,6 +13,8 @@ public class Terrain {
     private static final String TERRAIN_TAG = "terrain";
 
 
+    private static Terrain TERRAIN_INSTANCE = null;
+
     private static final float INIT_GROUND_HEIGHT_RATIO = 2 / 3f;
     private static final Color BASE_GROUND_COLOR = new Color(212, 123, 74);
     private static final RectangleRenderable rectangleRenderable =
@@ -21,9 +23,16 @@ public class Terrain {
     private final Vector2 windowDimensions;
 
 
-    public Terrain(Vector2 windowDimensions, int seed) {
+    private Terrain(Vector2 windowDimensions, int seed) {
         this.windowDimensions = windowDimensions;
         groundHeightAtX0 = windowDimensions.y() * INIT_GROUND_HEIGHT_RATIO;
+    }
+
+    public static Terrain create(Vector2 windowDimensions, int seed){
+        if (TERRAIN_INSTANCE == null){
+            TERRAIN_INSTANCE = new Terrain(windowDimensions,seed);
+        }
+        return TERRAIN_INSTANCE;
     }
 
     public float groundHeightAt(float x) {

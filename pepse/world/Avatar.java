@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 public class Avatar extends GameObject {
 
 
-    private static final String AVATER_TAG = "avater";
+    public static final String AVATER_TAG = "avater";
 
     public static final int IDLE_STATE = 0;
     public static final int JUMP_NO_MOVE_STATE = 1;
@@ -127,6 +127,7 @@ public class Avatar extends GameObject {
         // TODO GRAPHIC ENERGY
         transform().setVelocityX(xVel);
         if (inputListener.isKeyPressed(KeyEvent.VK_SPACE) && getVelocity().y() == 0 && handleJump()) {
+            notifyJumpObservers();
             transform().setVelocityY(VELOCITY_Y);
         }
         energyAndAnimationUpdate();
@@ -186,7 +187,6 @@ public class Avatar extends GameObject {
         if (energy < JUMP_ENERGY) {
             return false;
         }
-        notifyJumpObservers();
         energy -= JUMP_ENERGY;
         return true;
     }

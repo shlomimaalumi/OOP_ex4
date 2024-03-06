@@ -15,6 +15,8 @@ import pepse.world.Terrain;
 import pepse.world.daynight.Night;
 import pepse.world.daynight.Sun;
 import pepse.world.daynight.SunHalo;
+import pepse.world.trees.Flora;
+import pepse.world.trees.Tree;
 
 
 import java.util.List;
@@ -41,11 +43,15 @@ public class PepseGameManager extends GameManager {
 
         Avatar avatar= new Avatar(new Vector2(50,50),inputListener,imageReader);
         gameObjects().addGameObject(avatar);
-
+        Flora flora =new Flora(gameObjects(),Terrain.create(windowController.getWindowDimensions(),SEED));
+        List<Tree> trees = flora.createInRange(0,(int) windowController.getWindowDimensions().x());
+        for (Tree tree:trees){
+            avatar.addJumpObserver(tree);
+        }
     }
 
     private void createTerrain(WindowController windowController) {
-        Terrain terrain = new Terrain(windowController.getWindowDimensions(), SEED);
+        Terrain terrain = Terrain.create(windowController.getWindowDimensions(), SEED);
         List<Block> blocks = terrain.createInRange(BASE_X, (int) windowController.getWindowDimensions().x());
         for (Block block : blocks) {
             gameObjects().addGameObject(block, Layer.STATIC_OBJECTS);

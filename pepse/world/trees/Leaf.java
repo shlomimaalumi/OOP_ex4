@@ -14,8 +14,8 @@ public class Leaf extends Block{
 
     public Leaf(Vector2 topLeftCorner) {
         super(topLeftCorner,LEAF_CIRCLE);
-        setTag(LEAF_TAG);
 
+        setTag(LEAF_TAG);
     }
 
 
