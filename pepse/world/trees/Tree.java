@@ -29,7 +29,8 @@ public class Tree extends GameObject implements JumpObserver {
     List<Fruit> fruits = new ArrayList<>();
 
 
-    public Tree(Vector2 topLeftCorner,float trunkWidth ,float trunkHeight, GameObjectCollection gameObjects, int leavesAmount,int fruitsAmount,Random random) {
+    public Tree(Vector2 topLeftCorner,float trunkWidth ,float trunkHeight, GameObjectCollection gameObjects,
+                int leavesAmount,int fruitsAmount,Random random) {
         super(topLeftCorner,Vector2.ZERO,null);
         addTrunk(topLeftCorner,trunkWidth,trunkHeight,gameObjects);
         addLeaves(topLeftCorner,gameObjects,leavesAmount,random);
