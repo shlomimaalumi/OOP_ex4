@@ -8,6 +8,7 @@ import danogl.util.Vector2;
 import pepse.world.Block;
 
 import java.awt.Color;
+import java.util.Random;
 
 public class Leaf extends Block {
     private static final Color LEAF_COLOR = new Color(50, 200, 30);
@@ -27,11 +28,37 @@ public class Leaf extends Block {
 
 
     public Leaf(Vector2 topLeftCorner) {
-        super(topLeftCorner,LEAF_CIRCLE);
-
+        super(topLeftCorner, LEAF_CIRCLE);
         setTag(LEAF_TAG);
+        makeLeafMove();
+
     }
 
+    private void makeLeafMove() {
+        Runnable onElapsed = () -> {
+            rotateLeaf();
+            setDimensions(getDimensions());
+        };
+        new ScheduledTask(
+                this, RANDOM.nextFloat(MIN_DELAY, MAX_DELAY), true, onElapsed);
 
+    }
 
+    private void rotateLeaf() {
+        if (timeToCircle()) {
+            angle = angle + ROTATE_ANGLE;
+            partOfCircle -= MOTION;
+        } else {
+            angle = RANDOM.nextInt(angle - ROTATE_ANGLE, angle + ROTATE_ANGLE);
+        }
+        renderer().setRenderableAngle(angle);
+    }
+
+    private boolean timeToCircle() {
+        return partOfCircle != NO_MORE_CIRCLES;
+    }
+
+    public void onJump() {
+        partOfCircle = FULL_CIRCLE / ROTATE_ANGLE;
+    }
 }

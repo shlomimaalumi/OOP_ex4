@@ -29,22 +29,27 @@ public class Sun {
     public Sun(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
     }
 
-    public static GameObject create(Vector2 windowDimensions, float cycleLength) {
+    public static GameObject create(Vector2 cycleCenterPoint, float cycleLength) {
         if (SUN_INSTANCE == null) {
-            Vector2 SUN_LOCATION =
-                    windowDimensions.mult(MIDDLE).subtract(new Vector2(SUN_RADIUS, SUN_RADIUS).mult(MIDDLE));
-            GameObject sun = new GameObject(SUN_LOCATION,new Vector2(SUN_RADIUS, SUN_RADIUS), SUN_CIRCLE);
+            Vector2 sunLocation = cycleCenterPoint.multY(MIDDLE);
+            GameObject sun = new GameObject(sunLocation,new Vector2(SUN_RADIUS, SUN_RADIUS), SUN_CIRCLE);
             sun.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
             sun.setTag(SUN_TAG);
+
+
+
+
+
             //TODO check the exact location of the sun and the the axis
-            Vector2 cycleCenter = new Vector2(windowDimensions.mult(MIDDLE));
-            Vector2 initialSunCenter = new Vector2(SUN_LOCATION).subtract(new Vector2(CYCLE_RADIUS,
-                    HORIZONAL));
+
             new Transition<Float>(
                     sun, (Float angle) -> sun.setCenter(sunLocation.subtract(cycleCenterPoint).
                     rotated(angle).add(cycleCenterPoint)),
                     INIT_VALUE, FINAL_VALUE, Transition.LINEAR_INTERPOLATOR_FLOAT, cycleLength,
                     Transition.TransitionType.TRANSITION_LOOP, null);
+
+
+
             SUN_INSTANCE=sun;
         }
         return SUN_INSTANCE;

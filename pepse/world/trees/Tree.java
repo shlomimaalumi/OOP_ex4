@@ -16,10 +16,9 @@ import java.util.Random;
 public class Tree extends GameObject implements JumpObserver {
 
 
-    private static final Color TRUNK_COLOR = new Color(100, 50, 20);
-//    private static final RectangleRenderable trunkRectangleRenderable = new RectangleRenderable(TRUNK_COLOR);
-    private final static float  TRUNK_WIDTH=10;
-    private static final RectangleRenderable TRUNK_RENDERABLE = new RectangleRenderable(TRUNK_COLOR);
+    //    private static final RectangleRenderable trunkRectangleRenderable = new RectangleRenderable
+    //    (TRUNK_COLOR);
+    private final static float TRUNK_WIDTH = 10;
     private static final float MAX_RIGHT_DIS_FROM_TREE = 100;
     private static final float MAX_LEFT_DIS_FROM_TREE = 100;
     private static final float MAX_UP_DIS_FROM_TREE = 100;
@@ -33,14 +32,17 @@ public class Tree extends GameObject implements JumpObserver {
 //    private RectangleRenderable trunkRenderable;
     List<Leaf> leaves = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
+    private GameObject trunk;
 
 
-    public Tree(Vector2 topLeftCorner,float trunkWidth ,float trunkHeight, GameObjectCollection gameObjects,
-                int leavesAmount,int fruitsAmount,Random random) {
-        super(topLeftCorner,Vector2.ZERO,null);
-        addTrunk(topLeftCorner,trunkWidth,trunkHeight,gameObjects);
-        addLeaves(topLeftCorner,gameObjects,leavesAmount,random);
-        addFruits(topLeftCorner,gameObjects,fruitsAmount,random);
+    public Tree(Vector2 topLeftCorner, float trunkWidth, float trunkHeight, GameObjectCollection gameObjects,
+                int leavesAmount, int fruitsAmount, Random random) {
+        super(topLeftCorner, Vector2.ZERO, null);
+        trunkColor = INITIAL_TRUNK_COLOR;
+//        trunkRenderable = new RectangleRenderable(trunkColor);
+        addTrunk(topLeftCorner, trunkWidth, trunkHeight, gameObjects);
+        addLeaves(topLeftCorner, gameObjects, leavesAmount, random);
+        addFruits(topLeftCorner, gameObjects, fruitsAmount, random);
     }
 
     private void addFruits(Vector2 topLeftCorner, GameObjectCollection gameObjects, int fruitsAmount,
@@ -75,20 +77,29 @@ public class Tree extends GameObject implements JumpObserver {
         gameObjects.addGameObject(leaf, Layer.DEFAULT - 1);
     }
 
-    private void addTrunk(Vector2 topLeftCorner, float trunkWidth , float trunkHeight, GameObjectCollection gameObjects){
-        Vector2 trunkDimensions = new Vector2(trunkWidth,trunkHeight);
-        GameObject trunk = new GameObject(topLeftCorner,trunkDimensions,TRUNK_RENDERABLE);
-        trunk.physics().setMass(GameObjectPhysics.IMMOVABLE_MASS-1);
+    private void addTrunk(Vector2 topLeftCorner, float trunkWidth, float trunkHeight,
+                          GameObjectCollection gameObjects) {
+        RectangleRenderable trunkRenderable = new RectangleRenderable(trunkColor);
+        this.trunk = new GameObject(topLeftCorner, new Vector2(trunkWidth, trunkHeight), trunkRenderable);
+        trunk.physics().setMass(GameObjectPhysics.IMMOVABLE_MASS - 1);
         trunk.physics().preventIntersectionsFromDirection(Vector2.ZERO);
         gameObjects.addGameObject(trunk);
     }
 
+    private void chageTrunkColor() {
+        int r = INITIAL_TRUNK_COLOR.getRed() + RANDOM.nextInt(-DIFF, DIFF);
+        int g = INITIAL_TRUNK_COLOR.getGreen() + RANDOM.nextInt(-DIFF, DIFF);
+        int b = INITIAL_TRUNK_COLOR.getBlue() + RANDOM.nextInt(-DIFF, DIFF);
+        trunk.renderer().setRenderable(new RectangleRenderable(new Color(r,g,b)));
+    }
+
     @Override
     public void onJump() {
-//        for (Leaf leaf:leaves){
-//
-//        }
-        for (Fruit fruit: fruits){
+        chageTrunkColor();
+        for (Leaf leaf : leaves) {
+            leaf.onJump();
+        }
+        for (Fruit fruit : fruits) {
             fruit.onJump();
         }
 

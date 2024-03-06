@@ -39,12 +39,12 @@ public class PepseGameManager extends GameManager {
         createTerrain(windowController);
         gameObjects().addGameObject(Night.create(windowController.getWindowDimensions(), CYCLE_LENGTH),
                 Layer.FOREGROUND);
+        Vector2 sunCenterPoint = new Vector2(windowController.getWindowDimensions().x()/2,
+                windowController.getWindowDimensions().y() - (terrain.groundHeightAt(windowController.getWindowDimensions().x()/2)));
         gameObjects().addGameObject(Sun.create(windowController.getWindowDimensions(), CYCLE_LENGTH),
                 Layer.BACKGROUND);
-        gameObjects().addGameObject(SunHalo.create(Sun.create(windowController.getWindowDimensions(),
-                CYCLE_LENGTH)), Layer.BACKGROUND);
-
-        Avatar avatar= new Avatar(new Vector2(50,50),inputListener,imageReader);
+        gameObjects().addGameObject(SunHalo.create(Sun.create(sunCenterPoint, CYCLE_LENGTH)), Layer.BACKGROUND);
+        Avatar avatar= new Avatar(new Vector2(AVATAR_WIDTH,AVATAR_HEIGHT),inputListener,imageReader);
         gameObjects().addGameObject(avatar);
         Flora flora =new Flora(gameObjects(),Terrain.create(windowController.getWindowDimensions(),SEED));
         List<Tree> trees = flora.createInRange(0,(int) windowController.getWindowDimensions().x());
@@ -54,7 +54,7 @@ public class PepseGameManager extends GameManager {
     }
 
     private void createTerrain(WindowController windowController) {
-        Terrain terrain = Terrain.create(windowController.getWindowDimensions(), SEED);
+        this.terrain = Terrain.create(windowController.getWindowDimensions(), SEED);
         List<Block> blocks = terrain.createInRange(BASE_X, (int) windowController.getWindowDimensions().x());
         for (Block block : blocks) {
             gameObjects().addGameObject(block, Layer.STATIC_OBJECTS);
