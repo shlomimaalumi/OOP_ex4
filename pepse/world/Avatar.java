@@ -1,16 +1,23 @@
 package pepse.world;
 
 import danogl.*;
+import danogl.collisions.GameObjectCollection;
+import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.AnimationRenderable;
 import danogl.gui.rendering.ImageRenderable;
+import danogl.gui.rendering.Renderable;
+import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 import pepse.JumpObserver;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.awt.event.KeyEvent;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 
 public class Avatar extends GameObject {
@@ -119,6 +126,7 @@ public class Avatar extends GameObject {
         energy = Math.min(energy + energyToAdd, INIT_ENERGY);
     }
 
+
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
@@ -132,7 +140,11 @@ public class Avatar extends GameObject {
         }
         energyAndAnimationUpdate();
     }
-
+    public void energyNumeric(GameObjectCollection gameObjects) {
+        Supplier<Float> energyFunction = () -> energy;
+        gameObjects.addGameObject(new GameObject(new Vector2(20, 20), new Vector2(20, 20),
+                new TextRenderable(String.valueOf(energyFunction.get()))), Layer.FOREGROUND);
+    }
 
     private void energyAndAnimationUpdate() {
         ImageRenderable[] listToRenere = null;
@@ -201,6 +213,9 @@ public class Avatar extends GameObject {
             observer.onJump();
         }
     }
+
+
+
 
 //    private void setAnimation(List<ImageRenderable> animationList){
 //        this.renderer().setRenderable();
