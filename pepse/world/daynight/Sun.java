@@ -41,8 +41,8 @@ public class Sun {
             Vector2 initialSunCenter = new Vector2(SUN_LOCATION).subtract(new Vector2(CYCLE_RADIUS,
                     HORIZONAL));
             new Transition<Float>(
-                    sun, (Float angle) -> sun.setCenter(initialSunCenter.subtract(cycleCenter).
-                            rotated(angle).add(cycleCenter)),
+                    sun, (Float angle) -> sun.setCenter(sunLocation.subtract(cycleCenterPoint).
+                    rotated(angle).add(cycleCenterPoint)),
                     INIT_VALUE, FINAL_VALUE, Transition.LINEAR_INTERPOLATOR_FLOAT, cycleLength,
                     Transition.TransitionType.TRANSITION_LOOP, null);
             SUN_INSTANCE=sun;

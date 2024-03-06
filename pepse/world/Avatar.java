@@ -22,13 +22,13 @@ public class Avatar extends GameObject {
     public static final int JUMP_NO_MOVE_STATE = 1;
     public static final int RUN_STATE = 2;
 
-    private static final String[] IDLE_PATHES = new String[]{"assets/idle_0.png",
+    private static final String[] IDLE_PATHS = new String[]{"assets/idle_0.png",
             "assets/idle_1.png",
             "assets/idle_2.png",
             "assets/idle_3.png"
     };
 
-    private static final String[] JUMP_PATHES = new String[]{
+    private static final String[] JUMP_PATHS = new String[]{
             "assets/jump_0.png",
             "assets/jump_1.png",
             "assets/jump_2.png",
@@ -36,7 +36,7 @@ public class Avatar extends GameObject {
     };
 
 
-    private static final String[] RUN_PATHES = new String[]{
+    private static final String[] RUN_PATHS = new String[]{
             "assets/run_0.png",
             "assets/run_1.png",
             "assets/run_2.png",
@@ -45,9 +45,9 @@ public class Avatar extends GameObject {
             "assets/run_5.png"
     };
 
-    private static final ImageRenderable[] IDLE_IMAGE_LIST = new ImageRenderable[IDLE_PATHES.length];
-    private static final ImageRenderable[] JUMP_IMAGE_LIST = new ImageRenderable[JUMP_PATHES.length];
-    private static final ImageRenderable[] RUN_IMAGE_LIST = new ImageRenderable[RUN_PATHES.length];
+    private static final ImageRenderable[] IDLE_IMAGE_LIST = new ImageRenderable[IDLE_PATHS.length];
+    private static final ImageRenderable[] JUMP_IMAGE_LIST = new ImageRenderable[JUMP_PATHS.length];
+    private static final ImageRenderable[] RUN_IMAGE_LIST = new ImageRenderable[RUN_PATHS.length];
 
 
     private static final double TIME_BETWEEN_CLIPS = 0.25;
@@ -82,7 +82,7 @@ public class Avatar extends GameObject {
 
 
     public Avatar(Vector2 pos, UserInputListener inputListener, ImageReader imageReader) {
-        super(pos, Vector2.ONES.mult(50).multY(2), imageReader.readImage(IDLE_PATHES[0],
+        super(pos, Vector2.ONES.mult(50).multY(2), imageReader.readImage(IDLE_PATHS[0],
                 true));
         physics().preventIntersectionsFromDirection(Vector2.ZERO);
         transform().setAccelerationY(GRAVITY);
@@ -95,9 +95,9 @@ public class Avatar extends GameObject {
     }
 
     private void initAnimationsLists(ImageReader imageReader) {
-        initializeAnimationList(IDLE_IMAGE_LIST, IDLE_PATHES, imageReader);
-        initializeAnimationList(JUMP_IMAGE_LIST, JUMP_PATHES, imageReader);
-        initializeAnimationList(RUN_IMAGE_LIST, RUN_PATHES, imageReader);
+        initializeAnimationList(IDLE_IMAGE_LIST, IDLE_PATHS, imageReader);
+        initializeAnimationList(JUMP_IMAGE_LIST, JUMP_PATHS, imageReader);
+        initializeAnimationList(RUN_IMAGE_LIST, RUN_PATHS, imageReader);
         setAnimationList();
     }
 

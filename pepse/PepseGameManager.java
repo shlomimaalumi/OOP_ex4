@@ -25,7 +25,10 @@ public class PepseGameManager extends GameManager {
 
     private static final int SEED = 0;
     private static final int BASE_X = 0;
-    private static final float CYCLE_LENGTH = 8;
+    private static final float CYCLE_LENGTH = 30;
+    private static final float AVATAR_WIDTH = 50;
+    private static final float AVATAR_HEIGHT = 50;
+    private Terrain terrain;
 
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader,
