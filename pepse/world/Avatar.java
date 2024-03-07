@@ -98,7 +98,6 @@ public class Avatar extends GameObject {
         setTag(AVATER_TAG);
         initAnimationsLists(imageReader);
         jumpObservers = new ArrayList<>();
-
     }
 
     private void initAnimationsLists(ImageReader imageReader) {

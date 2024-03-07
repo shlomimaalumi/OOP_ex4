@@ -14,8 +14,7 @@ public class EnergyNumeric extends GameObject {
     private Supplier<Float> energySupplier;
     private final List<TextRenderable> textRenderables=new ArrayList<>();
 
-    public EnergyNumeric(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
-                         Supplier<Float> energySupplier) {
+    public EnergyNumeric(Vector2 topLeftCorner, Vector2 dimensions, Supplier<Float> energySupplier) {
         super(topLeftCorner, dimensions, new TextRenderable(String.valueOf(energySupplier.get())));
         this.energySupplier = energySupplier;
         createTextRenderables();

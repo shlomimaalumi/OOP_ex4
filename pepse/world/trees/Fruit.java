@@ -3,9 +3,11 @@ package pepse.world.trees;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.collisions.GameObjectCollection;
+import danogl.components.ScheduledTask;
 import danogl.gui.rendering.OvalRenderable;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+import org.w3c.dom.ls.LSOutput;
 import pepse.JumpObserver;
 import pepse.world.Avatar;
 
@@ -19,6 +21,7 @@ public class Fruit extends GameObject {
     private static final Vector2 FRUIT_DIMENSIONS = new Vector2(FRUIT_RADIUS,FRUIT_RADIUS);
     private static final float ENERGY_TO_ADD = 10;
     private static final int FIRST_COLOR = 0;
+    private static final float CYCLE_TIME =30f;
 
 
 //    private final static Color[] FRUITS_COLOR = new Color[]{Color.GREEN,Color.RED,Color.ORANGE,Color.YELLOW};
@@ -43,10 +46,12 @@ public class Fruit extends GameObject {
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-        if (Objects.equals(other.getTag(), Avatar.AVATER_TAG)){
-            Avatar avatar=(Avatar) other;
+        if (Objects.equals(other.getTag(), Avatar.AVATER_TAG)) {
+            Avatar avatar = (Avatar) other;
             avatar.addEnergy(ENERGY_TO_ADD);
             gameObjects.removeGameObject(this);
+            new ScheduledTask(
+                other, CYCLE_TIME, false,()-> gameObjects.addGameObject(this));
         }
     }
 

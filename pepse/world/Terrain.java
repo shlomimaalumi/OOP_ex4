@@ -37,7 +37,7 @@ public class Terrain {
 
     public float groundHeightAt(float x) {
         //TODO make this more interesting
-        return this.groundHeightAtX0;
+        return (float) (Math.sin(x / 100) * 100 + groundHeightAtX0 + Math.cos(x / 33) * 33) - x%10 * 3;
     }
 
     public List<Block> createInRange(int minX, int maxX) {

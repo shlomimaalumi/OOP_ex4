@@ -48,7 +48,7 @@ public class PepseGameManager extends GameManager {
         for (Tree tree:trees){
             avatar.addJumpObserver(tree);
         }
-        EnergyNumeric energyIndicator = new EnergyNumeric(new Vector2(0,0),new Vector2(100,100),null,avatar::getEnergy);
+        EnergyNumeric energyIndicator = new EnergyNumeric(new Vector2(0,0),new Vector2(100,100),avatar::getEnergy);
         gameObjects().addGameObject(energyIndicator,Layer.UI);
     }
 
