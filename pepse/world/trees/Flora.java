@@ -2,9 +2,7 @@ package pepse.world.trees;
 
 import danogl.collisions.GameObjectCollection;
 import danogl.util.Vector2;
-import pepse.world.Avatar;
-import pepse.world.Block;
-import pepse.world.Terrain;
+import pepse.world.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +20,16 @@ public class Flora {
     private static final int SPACE_BETWEEN_TRUNKS_RATIO = 3;
     private static final int CREATE_TREE = 0;
     private static final int CHANCE_FOR_CREATE_TREE = 10;
-    private final GameObjectCollection gameObjects;
+    private final AddObjectInterface addObject;
+    private final RemoveObjectInterface removeObject;
     private final Terrain terrain;
     private final Random random;
 
 
-    public Flora(GameObjectCollection gameObjects, Terrain terrain){
-        this.gameObjects = gameObjects;
+    public Flora(AddObjectInterface addObject, RemoveObjectInterface removeObject, Terrain terrain){
+        this.addObject = addObject;
+        this.removeObject = removeObject;
+
         this.terrain=terrain;
         this.random = new Random();
     }
@@ -36,15 +37,16 @@ public class Flora {
         List<Tree> trees = new ArrayList<>();
         for (int i = minX; i<= maxX;i+= Block.SIZE ){
             if (random.nextInt(CHANCE_FOR_CREATE_TREE)==CREATE_TREE){
-                 float groundHeight = terrain.groundHeightAt((float) i);
-                 int trunkHeight = random.nextInt(MIN_TRUNK_HEIGHT,MAX_TRUNK_HEIGHT);
-                 int trunkWidth=random.nextInt(MIN_TRUNK_WIDTH,MAX_TRUNK_WIDTH);
-                 int leavesAmount = random.nextInt(MIN_LEAVES_AMOUNT,MAX_LEAVES_AMOUNT);
-                 int fruitAmount = random.nextInt(MIN_FRUIT_AMOUNT,MAX_FRUIT_AMOUNT);
-                 Vector2 topLeftCorner = new Vector2(i,groundHeight-trunkHeight);
-                 Tree tree = new Tree(topLeftCorner, trunkWidth,(float) trunkHeight,gameObjects,leavesAmount,fruitAmount,random);
-                 i+= SPACE_BETWEEN_TRUNKS_RATIO * trunkWidth;
-                 trees.add(tree);
+                float groundHeight = terrain.groundHeightAt((float) i);
+                int trunkHeight = random.nextInt(MIN_TRUNK_HEIGHT,MAX_TRUNK_HEIGHT);
+                int trunkWidth=random.nextInt(MIN_TRUNK_WIDTH,MAX_TRUNK_WIDTH);
+                int leavesAmount = random.nextInt(MIN_LEAVES_AMOUNT,MAX_LEAVES_AMOUNT);
+                int fruitAmount = random.nextInt(MIN_FRUIT_AMOUNT,MAX_FRUIT_AMOUNT);
+                Vector2 topLeftCorner = new Vector2(i,groundHeight-trunkHeight);
+                Tree tree = new Tree(topLeftCorner, trunkWidth,(float) trunkHeight,addObject,removeObject,leavesAmount,
+                        fruitAmount,random);
+                i+= SPACE_BETWEEN_TRUNKS_RATIO * trunkWidth;
+                trees.add(tree);
             }
         }
         return trees;

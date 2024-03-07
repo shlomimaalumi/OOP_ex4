@@ -43,7 +43,8 @@ public class PepseGameManager extends GameManager {
         gameObjects().addGameObject(SunHalo.create(Sun.create(sunCenterPoint, CYCLE_LENGTH)), Layer.BACKGROUND);
         Avatar avatar= new Avatar(new Vector2(AVATAR_WIDTH,AVATAR_HEIGHT),inputListener,imageReader);
         gameObjects().addGameObject(avatar);
-        Flora flora =new Flora(gameObjects(),Terrain.create(windowController.getWindowDimensions(),SEED));
+        Flora flora =new Flora(gameObjects()::addGameObject,gameObjects()::removeGameObject,
+                Terrain.create(windowController.getWindowDimensions(),SEED));
         List<Tree> trees = flora.createInRange(0,(int) windowController.getWindowDimensions().x());
         for (Tree tree:trees){
             avatar.addJumpObserver(tree);

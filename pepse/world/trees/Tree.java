@@ -7,6 +7,8 @@ import danogl.components.GameObjectPhysics;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.util.Vector2;
 import pepse.JumpObserver;
+import pepse.world.AddObjectInterface;
+import pepse.world.RemoveObjectInterface;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -26,71 +28,79 @@ public class Tree extends GameObject implements JumpObserver {
     private static final Color INITIAL_TRUNK_COLOR = new Color(100, 50, 20);
     private static final Random RANDOM = new Random();
     private static final int DIFF = 20;
+    private  AddObjectInterface addObject;
+    private  RemoveObjectInterface removeObject;
 
 
     private Color trunkColor = INITIAL_TRUNK_COLOR;
-//    private RectangleRenderable trunkRenderable;
+    //    private RectangleRenderable trunkRenderable;
     List<Leaf> leaves = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
     private GameObject trunk;
 
 
-    public Tree(Vector2 topLeftCorner, float trunkWidth, float trunkHeight, GameObjectCollection gameObjects,
+    public Tree(Vector2 topLeftCorner, float trunkWidth, float trunkHeight, AddObjectInterface addObject,
+                RemoveObjectInterface removeObject,
                 int leavesAmount, int fruitsAmount, Random random) {
         super(topLeftCorner, Vector2.ZERO, null);
+        this.addObject = addObject;
+        this.removeObject = removeObject;
         trunkColor = INITIAL_TRUNK_COLOR;
 //        trunkRenderable = new RectangleRenderable(trunkColor);
-        addTrunk(topLeftCorner, trunkWidth, trunkHeight, gameObjects);
-        addLeaves(topLeftCorner, gameObjects, leavesAmount, random);
-        addFruits(topLeftCorner, gameObjects, fruitsAmount, random);
+        addTrunk(topLeftCorner, trunkWidth, trunkHeight, addObject);
+        addLeaves(topLeftCorner, addObject, leavesAmount, random);
+        addFruits(topLeftCorner, addObject, removeObject, fruitsAmount, random);
     }
 
-    private void addFruits(Vector2 topLeftCorner, GameObjectCollection gameObjects, int fruitsAmount,
+    private void addFruits(Vector2 topLeftCorner, AddObjectInterface addObject,
+                           RemoveObjectInterface removeObject,
+                           int fruitsAmount,
                            Random random) {
         for (int i = 0; i < fruitsAmount; i++) {
             float x = random.nextFloat(-MAX_LEFT_DIS_FROM_TREE, MAX_RIGHT_DIS_FROM_TREE);
             float y = random.nextFloat(-MAX_UP_DIS_FROM_TREE, MAX_DOWN_DIS_FROM_TREE);
             Vector2 fruitPosition = new Vector2(topLeftCorner).add(new Vector2(x, y));
-            addFruit(fruitPosition, gameObjects, random);
+            addFruit(fruitPosition, addObject, removeObject, random);
         }
     }
 
-    private void addFruit(Vector2 fruitPosition, GameObjectCollection gameObjects, Random random) {
-        Fruit fruit = new Fruit(fruitPosition, gameObjects, random);
+    private void addFruit(Vector2 fruitPosition, AddObjectInterface addObject,
+                          RemoveObjectInterface removeObject,
+                          Random random) {
+        Fruit fruit = new Fruit(fruitPosition, addObject, removeObject, random);
         fruits.add(fruit);
-        gameObjects.addGameObject(fruit);
     }
 
-    private void addLeaves(Vector2 topLeftCorner, GameObjectCollection gameObjects, int leavesAmount,
+    private void addLeaves(Vector2 topLeftCorner, AddObjectInterface addObject, int leavesAmount,
                            Random random) {
         for (int i = 0; i < leavesAmount; i++) {
             float x = random.nextFloat(-MAX_LEFT_DIS_FROM_TREE, MAX_RIGHT_DIS_FROM_TREE);
             float y = random.nextFloat(-MAX_UP_DIS_FROM_TREE, MAX_DOWN_DIS_FROM_TREE);
             Vector2 leafVector = new Vector2(topLeftCorner).add(new Vector2(x, y));
-            addLeaf(leafVector, gameObjects);
+            addLeaf(leafVector, addObject);
         }
     }
 
-    private void addLeaf(Vector2 topLeftCorner, GameObjectCollection gameObjects) {
+    private void addLeaf(Vector2 topLeftCorner, AddObjectInterface addObject) {
         Leaf leaf = new Leaf(topLeftCorner);
         leaves.add(leaf);
-        gameObjects.addGameObject(leaf, Layer.DEFAULT - 1);
+        addObject.addObject(leaf, Layer.DEFAULT - 1);
     }
 
     private void addTrunk(Vector2 topLeftCorner, float trunkWidth, float trunkHeight,
-                          GameObjectCollection gameObjects) {
+                          AddObjectInterface addObject) {
         RectangleRenderable trunkRenderable = new RectangleRenderable(trunkColor);
         this.trunk = new GameObject(topLeftCorner, new Vector2(trunkWidth, trunkHeight), trunkRenderable);
         trunk.physics().setMass(GameObjectPhysics.IMMOVABLE_MASS - 1);
         trunk.physics().preventIntersectionsFromDirection(Vector2.ZERO);
-        gameObjects.addGameObject(trunk);
+        addObject.addObject(trunk, Layer.DEFAULT);
     }
 
     private void chageTrunkColor() {
         int r = INITIAL_TRUNK_COLOR.getRed() + RANDOM.nextInt(-DIFF, DIFF);
         int g = INITIAL_TRUNK_COLOR.getGreen() + RANDOM.nextInt(-DIFF, DIFF);
         int b = INITIAL_TRUNK_COLOR.getBlue() + RANDOM.nextInt(-DIFF, DIFF);
-        trunk.renderer().setRenderable(new RectangleRenderable(new Color(r,g,b)));
+        trunk.renderer().setRenderable(new RectangleRenderable(new Color(r, g, b)));
     }
 
     @Override
