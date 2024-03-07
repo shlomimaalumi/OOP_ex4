@@ -18,13 +18,14 @@ import java.util.Random;
 public class Fruit extends GameObject {
     private final GameObjectCollection gameObjects;
     private static final float FRUIT_RADIUS = 30;
-    private static final Vector2 FRUIT_DIMENSIONS = new Vector2(FRUIT_RADIUS,FRUIT_RADIUS);
+    private static final Vector2 FRUIT_DIMENSIONS = new Vector2(FRUIT_RADIUS, FRUIT_RADIUS);
     private static final float ENERGY_TO_ADD = 10;
     private static final int FIRST_COLOR = 0;
     private static final float CYCLE_TIME =30f;
 
 
-//    private final static Color[] FRUITS_COLOR = new Color[]{Color.GREEN,Color.RED,Color.ORANGE,Color.YELLOW};
+    //    private final static Color[] FRUITS_COLOR = new Color[]{Color.GREEN,Color.RED,Color.ORANGE,Color
+    //    .YELLOW};
     private static final OvalRenderable[] COLORS_CIRCLE = {
             new OvalRenderable(Color.ORANGE),
             new OvalRenderable(Color.PINK),
@@ -40,7 +41,7 @@ public class Fruit extends GameObject {
 
     public Fruit(Vector2 topLeftCorner, GameObjectCollection gameObjects, Random random) {
         super(topLeftCorner, FRUIT_DIMENSIONS, COLORS_CIRCLE[FIRST_COLOR]);
-        this.gameObjects=gameObjects;
+        this.gameObjects = gameObjects;
         this.random = random;
     }
 
@@ -55,12 +56,13 @@ public class Fruit extends GameObject {
         }
     }
 
+
     public void onJump() {
         int index;
-        do{
+        do {
             index = random.nextInt(COLORS_CIRCLE.length);
-        } while(index==colorIndex);
+        } while (index == colorIndex);
         this.renderer().setRenderable(COLORS_CIRCLE[index]);
-        colorIndex=index;
+        colorIndex = index;
     }
 }
