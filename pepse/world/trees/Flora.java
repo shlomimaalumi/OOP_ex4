@@ -11,6 +11,7 @@ import java.util.Random;
 public class Flora {
     private static final int MIN_TRUNK_HEIGHT = 200;
     private static final int MAX_TRUNK_HEIGHT = 300;
+    private final static int TRUNK_WIDTH = 30;
     private final static int MIN_TRUNK_WIDTH = 25;
     private final static int MAX_TRUNK_WIDTH = 55;
     private static final int MIN_LEAVES_AMOUNT = 20;
@@ -39,7 +40,8 @@ public class Flora {
             if (random.nextInt(CHANCE_FOR_CREATE_TREE)==CREATE_TREE){
                 float groundHeight = terrain.groundHeightAt((float) i);
                 int trunkHeight = random.nextInt(MIN_TRUNK_HEIGHT,MAX_TRUNK_HEIGHT);
-                int trunkWidth=random.nextInt(MIN_TRUNK_WIDTH,MAX_TRUNK_WIDTH);
+                int trunkWidth = TRUNK_WIDTH;
+//                int trunkWidth=random.nextInt(MIN_TRUNK_WIDTH,MAX_TRUNK_WIDTH);
                 int leavesAmount = random.nextInt(MIN_LEAVES_AMOUNT,MAX_LEAVES_AMOUNT);
                 int fruitAmount = random.nextInt(MIN_FRUIT_AMOUNT,MAX_FRUIT_AMOUNT);
                 Vector2 topLeftCorner = new Vector2(i,groundHeight-trunkHeight);

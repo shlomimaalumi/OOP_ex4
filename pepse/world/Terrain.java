@@ -17,8 +17,9 @@ public class Terrain {
 
     private static final float INIT_GROUND_HEIGHT_RATIO = 2 / 3f;
     private static final Color BASE_GROUND_COLOR = new Color(212, 123, 74);
-    private static final RectangleRenderable rectangleRenderable =
-            new RectangleRenderable(ColorSupplier.approximateColor(BASE_GROUND_COLOR));
+    private static final int DELTA_COLOR = 15;
+//    private static final RectangleRenderable rectangleRenderable =
+//            new RectangleRenderable(BASE_GROUND_COLOR);
     private final float groundHeightAtX0;
     private final Vector2 windowDimensions;
 
@@ -59,6 +60,8 @@ public class Terrain {
     }
 
     private Block createGroundBlocksAtX(int x, int y) {
+        RectangleRenderable rectangleRenderable =
+                new RectangleRenderable(ColorSupplier.approximateColor(BASE_GROUND_COLOR, DELTA_COLOR));
         Block block = new Block(new Vector2(x, y), rectangleRenderable);
         block.setTag(TERRAIN_TAG);
         return block;

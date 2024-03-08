@@ -23,7 +23,7 @@ public class PepseGameManager extends GameManager {
 
     private static final int SEED = 0;
     private static final int BASE_X = 0;
-    private static final float CYCLE_LENGTH = 2;
+    private static final float CYCLE_LENGTH = 30;
 //    private static final float AVATAR_WIDTH = 50;
     private static final float AVATAR_POS = 50;
     private Terrain terrain;
@@ -49,7 +49,7 @@ public class PepseGameManager extends GameManager {
         gameObjects().addGameObject(avatar);
         Flora flora =new Flora(gameObjects()::addGameObject,gameObjects()::removeGameObject,
                 Terrain.create(windowController.getWindowDimensions(),SEED));
-        List<Tree> trees = flora.createInRange(-500,(int) windowController.getWindowDimensions().x()+500);
+        List<Tree> trees = flora.createInRange(0,(int) windowController.getWindowDimensions().x()+500);
         for (Tree tree:trees){
             avatar.addJumpObserver(tree);
         }
