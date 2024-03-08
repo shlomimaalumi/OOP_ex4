@@ -68,7 +68,7 @@ public class Terrain {
         List<Block> blocks = new ArrayList<>();
         int minY = (int) (Math.floor(groundHeightAt(x) / Block.SIZE) * Block.SIZE);
 
-        for (int y = minY; y < windowDimensions.y(); y += Block.SIZE) {
+        for (int y = minY; y < windowDimensions.y()+300; y += Block.SIZE) {
             blocks.add(createGroundBlocksAtX(x, y));
         }
         return blocks;

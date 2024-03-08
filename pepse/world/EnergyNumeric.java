@@ -12,11 +12,14 @@ import java.util.function.Supplier;
 
 public class EnergyNumeric extends GameObject {
     private Supplier<Float> energySupplier;
+    private final Supplier<Vector2> avatorPositionSupplier;
     private final List<TextRenderable> textRenderables=new ArrayList<>();
 
-    public EnergyNumeric(Vector2 topLeftCorner, Vector2 dimensions, Supplier<Float> energySupplier) {
+    public EnergyNumeric(Vector2 topLeftCorner, Vector2 dimensions, Supplier<Float> energySupplier,
+                         Supplier<Vector2> avatorPositionSupplier) {
         super(topLeftCorner, dimensions, new TextRenderable(String.valueOf(energySupplier.get())));
         this.energySupplier = energySupplier;
+        this.avatorPositionSupplier = avatorPositionSupplier;
         createTextRenderables();
     }
 
@@ -42,5 +45,6 @@ public class EnergyNumeric extends GameObject {
         super.update(deltaTime);
         int energy = (int) energySupplier.get().floatValue();
         renderer().setRenderable(textRenderables.get(energy));
+        setCenter(avatorPositionSupplier.get().subtract(new Vector2(0,200)));
     }
 }

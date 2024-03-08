@@ -39,6 +39,7 @@ public class Leaf extends Block {
             rotateLeaf();
             setDimensions(getDimensions());
         };
+
         new ScheduledTask(
                 this, RANDOM.nextFloat(MIN_DELAY, MAX_DELAY), true, onElapsed);
 
