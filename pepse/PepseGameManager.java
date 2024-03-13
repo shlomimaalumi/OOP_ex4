@@ -26,6 +26,8 @@ public class PepseGameManager extends GameManager {
     private static final float CYCLE_LENGTH = 30;
 //    private static final float AVATAR_WIDTH = 50;
     private static final float AVATAR_POS = 50;
+    private static final int BEGIN_WORLD_X = 0;
+    private static final int FRONT = 1;
     private Terrain terrain;
 
     @Override
@@ -43,9 +45,9 @@ public class PepseGameManager extends GameManager {
                 Layer.BACKGROUND);
         gameObjects().addGameObject(SunHalo.create(Sun.create(sunCenterPoint, CYCLE_LENGTH)), Layer.BACKGROUND);
         Avatar avatar= new Avatar(new Vector2(AVATAR_POS,AVATAR_POS),inputListener,imageReader);
-        setCamera(new Camera(avatar,new Vector2(AVATAR_POS,AVATAR_POS-100),
-                windowController.getWindowDimensions(),
-                windowController.getWindowDimensions()));
+//        setCamera(new Camera(avatar,new Vector2(AVATAR_POS,AVATAR_POS-100),
+//                windowController.getWindowDimensions(),
+//                windowController.getWindowDimensions()));
         gameObjects().addGameObject(avatar);
         Flora flora =new Flora(gameObjects()::addGameObject,gameObjects()::removeGameObject,
                 Terrain.create(windowController.getWindowDimensions(),SEED));
@@ -54,14 +56,14 @@ public class PepseGameManager extends GameManager {
             avatar.addJumpObserver(tree);
         }
         EnergyNumeric energyIndicator = new EnergyNumeric(new Vector2(0,0),new Vector2(100,100),
-                avatar::getEnergy,avatar::getTopLeftCorner);
+                avatar::getEnergy);
         gameObjects().addGameObject(energyIndicator,Layer.UI);
     }
 
     private void createTerrain(WindowController windowController) {
         this.terrain = Terrain.create(windowController.getWindowDimensions(), SEED);
-        List<Block> blocks = terrain.createInRange(-500,
-                (int) (windowController.getWindowDimensions().x() + 500));
+        List<Block> blocks = terrain.createInRange(BEGIN_WORLD_X,
+                (int) (windowController.getWindowDimensions().x()));
 //                (int) windowController.getWindowDimensions().x());
         for (Block block : blocks) {
             gameObjects().addGameObject(block, Layer.STATIC_OBJECTS);

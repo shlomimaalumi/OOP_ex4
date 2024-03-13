@@ -21,7 +21,7 @@ public class Fruit extends GameObject {
     private static final float ENERGY_TO_ADD = 10;
     private static final int FIRST_COLOR = 0;
     private static final float CYCLE_TIME = 30f;
-
+    private static final int FRONT = 1;
 
     //    private final static Color[] FRUITS_COLOR = new Color[]{Color.GREEN,Color.RED,Color.ORANGE,Color
     //    .YELLOW};

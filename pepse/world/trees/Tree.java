@@ -28,8 +28,10 @@ public class Tree extends GameObject implements JumpObserver {
     private static final Color INITIAL_TRUNK_COLOR = new Color(100, 50, 20);
     private static final Random RANDOM = new Random();
     private static final int DIFF = 20;
-    private  AddObjectInterface addObject;
-    private  RemoveObjectInterface removeObject;
+    private static final int FRONT = 1;
+    private static final int BACK_LAYER = -1;
+    private AddObjectInterface addObject;
+    private RemoveObjectInterface removeObject;
 
 
     private Color trunkColor = INITIAL_TRUNK_COLOR;
@@ -37,6 +39,8 @@ public class Tree extends GameObject implements JumpObserver {
     List<Leaf> leaves = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
     private GameObject trunk;
+
+
 
 
     public Tree(Vector2 topLeftCorner, float trunkWidth, float trunkHeight, AddObjectInterface addObject,
@@ -84,7 +88,7 @@ public class Tree extends GameObject implements JumpObserver {
     private void addLeaf(Vector2 topLeftCorner, AddObjectInterface addObject) {
         Leaf leaf = new Leaf(topLeftCorner);
         leaves.add(leaf);
-        addObject.addObject(leaf, Layer.DEFAULT - 1);
+        addObject.addObject(leaf, Layer.STATIC_OBJECTS);
     }
 
     private void addTrunk(Vector2 topLeftCorner, float trunkWidth, float trunkHeight,
@@ -93,8 +97,8 @@ public class Tree extends GameObject implements JumpObserver {
         this.trunk = new GameObject(topLeftCorner, new Vector2(trunkWidth, trunkHeight), trunkRenderable);
         trunk.physics().setMass(GameObjectPhysics.IMMOVABLE_MASS - 1);
         trunk.physics().preventIntersectionsFromDirection(Vector2.ZERO);
-        addObject.addObject(trunk, Layer.DEFAULT);
-    }
+        addObject.addObject(trunk, Layer.STATIC_OBJECTS);
+        }
 
     private void chageTrunkColor() {
         int r = INITIAL_TRUNK_COLOR.getRed() + RANDOM.nextInt(-DIFF, DIFF);
