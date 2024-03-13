@@ -16,10 +16,14 @@ import java.awt.event.KeyEvent;
  * Represents the avatar character in the game world.
  */
 public class Avatar extends GameObject {
-    /** Tag identifying the avatar object. */
+    /**
+     * Tag identifying the avatar object.
+     */
     public static final String AVATAR_TAG = "avatar";
 
-    /** Array containing paths to idle animation images. */
+    /**
+     * Array containing paths to idle animation images.
+     */
     private static final String[] IDLE_PATHS = new String[]{
             "assets/idle_0.png",
             "assets/idle_1.png",
@@ -27,7 +31,9 @@ public class Avatar extends GameObject {
             "assets/idle_3.png"
     };
 
-    /** Array containing paths to jump animation images. */
+    /**
+     * Array containing paths to jump animation images.
+     */
     private static final String[] JUMP_PATHS = new String[]{
             "assets/jump_0.png",
             "assets/jump_1.png",
@@ -35,7 +41,9 @@ public class Avatar extends GameObject {
             "assets/jump_3.png"
     };
 
-    /** Array containing paths to run animation images. */
+    /**
+     * Array containing paths to run animation images.
+     */
     private static final String[] RUN_PATHS = new String[]{
             "assets/run_0.png",
             "assets/run_1.png",
@@ -45,78 +53,122 @@ public class Avatar extends GameObject {
             "assets/run_5.png"
     };
 
-    /** List of image renderables for idle animations. */
+    /**
+     * List of image renderables for idle animations.
+     */
     private static final ImageRenderable[] IDLE_IMAGE_LIST = new ImageRenderable[IDLE_PATHS.length];
 
-    /** List of image renderables for jump animations. */
+    /**
+     * List of image renderables for jump animations.
+     */
     private static final ImageRenderable[] JUMP_IMAGE_LIST = new ImageRenderable[JUMP_PATHS.length];
 
-    /** List of image renderables for run animations. */
+    /**
+     * List of image renderables for run animations.
+     */
     private static final ImageRenderable[] RUN_IMAGE_LIST = new ImageRenderable[RUN_PATHS.length];
 
-    /** Time between animation clips. */
+    /**
+     * Time between animation clips.
+     */
     private static final double TIME_BETWEEN_CLIPS = 0.25;
 
-    /** Animation renderable for idle animations. */
+    /**
+     * Animation renderable for idle animations.
+     */
     private static AnimationRenderable IDLE_ANIMATION = null;
 
-    /** Animation renderable for run animations. */
+    /**
+     * Animation renderable for run animations.
+     */
     private static AnimationRenderable RUN_ANIMATION = null;
 
-    /** Animation renderable for jump animations. */
+    /**
+     * Animation renderable for jump animations.
+     */
     private static AnimationRenderable JUMP_ANIMATION = null;
 
-    /** Velocity on the X axis. */
+    /**
+     * Velocity on the X axis.
+     */
     private static final float VELOCITY_X = 400;
 
-    /** Velocity on the Y axis. */
+    /**
+     * Velocity on the Y axis.
+     */
     private static final float VELOCITY_Y = -650;
 
-    /** Gravity force. */
+    /**
+     * Gravity force.
+     */
     private static final float GRAVITY = 600;
 
-    /** Initial energy level. */
+    /**
+     * Initial energy level.
+     */
     private static final float INIT_ENERGY = 100f;
 
-    /** Energy consumption rate while running. */
+    /**
+     * Energy consumption rate while running.
+     */
     private static final float RUN_ENERGY = 0.5f;
 
-    /** Energy consumption rate while jumping. */
+    /**
+     * Energy consumption rate while jumping.
+     */
     private static final float JUMP_ENERGY = 10f;
 
-    /** Energy consumption rate while idle. */
+    /**
+     * Energy consumption rate while idle.
+     */
     private static final float IDLE_ENERGY = 1f;
 
-    /** Resting position on the X axis. */
+    /**
+     * Resting position on the X axis.
+     */
     private static final float RESTING_POSITION = 0f;
 
-    /** Energy multiplier for performing double actions. */
+    /**
+     * Energy multiplier for performing double actions.
+     */
     private static final float DOUBLE_ACTIONS = 2f;
 
-    /** List of observers for avatar jumps. */
+    /**
+     * List of observers for avatar jumps.
+     */
     private final List<JumpObserver> jumpObservers;
 
-    /** Input listener for avatar controls. */
+    /**
+     * Input listener for avatar controls.
+     */
     private final UserInputListener inputListener;
 
-    /** Energy level of the avatar. */
+    /**
+     * Energy level of the avatar.
+     */
     private float energy;
 
-    /** Direction constant: right. */
+    /**
+     * Direction constant: right.
+     */
     private static final int RIGHT = 1;
 
-    /** Direction constant: left. */
+    /**
+     * Direction constant: left.
+     */
     private static final int LEFT = -1;
 
-    /** Last movement direction. */
+    /**
+     * Last movement direction.
+     */
     private int lastDirection = RIGHT;
 
     /**
      * Constructs an avatar object with specified parameters.
      *
-     * @param pos         Initial position of the avatar.
+     * @param pos           Initial position of the avatar.
      * @param inputListener Listener for avatar controls.
-     * @param imageReader  Reader for loading image resources.
+     * @param imageReader   Reader for loading image resources.
      */
     public Avatar(Vector2 pos, UserInputListener inputListener, ImageReader imageReader) {
         super(pos, Vector2.ONES.mult(50).multY(2), imageReader.readImage(IDLE_PATHS[0], true));
@@ -148,7 +200,8 @@ public class Avatar extends GameObject {
      * @param paths         Array of file paths to the animation images.
      * @param imageReader   Reader for loading image resources.
      */
-    private void initializeAnimationList(ImageRenderable[] animationList, String[] paths, ImageReader imageReader) {
+    private void initializeAnimationList(ImageRenderable[] animationList, String[] paths,
+                                         ImageReader imageReader) {
         for (int i = 0; i < animationList.length; i++) {
             animationList[i] = imageReader.readImage(paths[i], true);
         }

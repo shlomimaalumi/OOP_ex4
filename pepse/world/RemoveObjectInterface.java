@@ -2,10 +2,10 @@ package pepse.world;
 
 import danogl.GameObject;
 
-@FunctionalInterface
 /**
  * Functional interface for removing game objects.
  */
+@FunctionalInterface
 public interface RemoveObjectInterface {
     /**
      * Removes the specified game object.

@@ -17,8 +17,8 @@ import pepse.world.trees.Tree;
 import java.util.List;
 
 /**
- * The PepseGameManager class extends the GameManager class and serves as the main entry point
- * for the game's management and initialization.
+ * The PepseGameManager class extends the GameManager class and serves as the main entry point for the game's
+ * management and initialization.
  */
 public class PepseGameManager extends GameManager {
 
@@ -80,7 +80,8 @@ public class PepseGameManager extends GameManager {
                 terrain.groundHeightAt(windowController.getWindowDimensions().x() / 4));
         gameObjects().addGameObject(Sun.create(sunCenterPoint, CYCLE_LENGTH),
                 Layer.BACKGROUND);
-        gameObjects().addGameObject(SunHalo.create(Sun.create(sunCenterPoint, CYCLE_LENGTH)), Layer.BACKGROUND);
+        gameObjects().addGameObject(SunHalo.create(Sun.create(sunCenterPoint, CYCLE_LENGTH)),
+                Layer.BACKGROUND);
     }
 
     /**
@@ -97,12 +98,13 @@ public class PepseGameManager extends GameManager {
     /**
      * Creates the avatar and its associated jump observers.
      *
-     * @param imageReader  The ImageReader instance for loading avatar images.
+     * @param imageReader   The ImageReader instance for loading avatar images.
      * @param inputListener The UserInputListener instance for handling user input.
      * @param trees         The list of trees to observe avatar jumps.
      * @return The created Avatar instance.
      */
-    private Avatar createAvatarAndObservers(ImageReader imageReader, UserInputListener inputListener, List<Tree> trees) {
+    private Avatar createAvatarAndObservers(ImageReader imageReader, UserInputListener inputListener,
+                                            List<Tree> trees) {
         Avatar avatar = new Avatar(new Vector2(AVATAR_POS, AVATAR_POS), inputListener, imageReader);
         gameObjects().addGameObject(avatar);
         for (Tree tree : trees) {

@@ -13,28 +13,44 @@ import java.awt.*;
  * Represents the sun object in the game world.
  */
 public class Sun {
-    /** Tag to identify the sun object. */
+    /**
+     * Tag to identify the sun object.
+     */
     private static final String SUN_TAG = "sun";
 
-    /** Singleton instance of the sun object. */
+    /**
+     * Singleton instance of the sun object.
+     */
     private static GameObject SUN_INSTANCE = null;
 
-    /** Color of the sun. */
+    /**
+     * Color of the sun.
+     */
     private static final Color SUN_COLOR = Color.YELLOW;
 
-    /** Radius of the sun. */
+    /**
+     * Radius of the sun.
+     */
     private static final float SUN_RADIUS = 100;
 
-    /** Renderable component representing the sun. */
+    /**
+     * Renderable component representing the sun.
+     */
     private static final OvalRenderable SUN_CIRCLE = new OvalRenderable(SUN_COLOR);
 
-    /** Middle value used for positioning the sun. */
+    /**
+     * Middle value used for positioning the sun.
+     */
     private static final float MIDDLE = 0.5f;
 
-    /** Initial value for the sun's angle. */
+    /**
+     * Initial value for the sun's angle.
+     */
     private static final float INIT_VALUE = 0f;
 
-    /** Final value for the sun's angle. */
+    /**
+     * Final value for the sun's angle.
+     */
     private static final float FINAL_VALUE = 360f;
 
     /**
@@ -58,7 +74,8 @@ public class Sun {
             sun.setTag(SUN_TAG);
             new Transition<>(
                     sun,
-                    (Float angle) -> sun.setCenter(sunLocation.subtract(cycleCenterPoint).rotated(angle).add(cycleCenterPoint)),
+                    (Float angle) -> sun.setCenter(sunLocation.subtract(cycleCenterPoint).rotated(angle)
+                            .add(cycleCenterPoint)),
                     INIT_VALUE,
                     FINAL_VALUE,
                     Transition.LINEAR_INTERPOLATOR_FLOAT,
