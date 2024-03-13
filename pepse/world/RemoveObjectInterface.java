@@ -2,6 +2,7 @@ package pepse.world;
 
 import danogl.GameObject;
 
+@FunctionalInterface
 public interface RemoveObjectInterface {
-    boolean removeObject(GameObject gameObject);
+    void removeObject(GameObject gameObject);
 }

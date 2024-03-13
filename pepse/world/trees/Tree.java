@@ -1,7 +1,6 @@
 package pepse.world.trees;
 
 import danogl.GameObject;
-import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
 import danogl.components.GameObjectPhysics;
 import danogl.gui.rendering.RectangleRenderable;
@@ -20,7 +19,6 @@ public class Tree extends GameObject implements JumpObserver {
 
     //    private static final RectangleRenderable trunkRectangleRenderable = new RectangleRenderable
     //    (TRUNK_COLOR);
-    private final static float TRUNK_WIDTH = 10;
     private static final float MAX_RIGHT_DIS_FROM_TREE = 100;
     private static final float MAX_LEFT_DIS_FROM_TREE = 100;
     private static final float MAX_UP_DIS_FROM_TREE = 100;
@@ -28,14 +26,9 @@ public class Tree extends GameObject implements JumpObserver {
     private static final Color INITIAL_TRUNK_COLOR = new Color(100, 50, 20);
     private static final Random RANDOM = new Random();
     private static final int DIFF = 20;
-    private static final int FRONT = 1;
-    private static final int BACK_LAYER = -1;
-    private AddObjectInterface addObject;
-    private RemoveObjectInterface removeObject;
 
 
     private Color trunkColor = INITIAL_TRUNK_COLOR;
-    //    private RectangleRenderable trunkRenderable;
     List<Leaf> leaves = new ArrayList<>();
     List<Fruit> fruits = new ArrayList<>();
     private GameObject trunk;
@@ -47,10 +40,7 @@ public class Tree extends GameObject implements JumpObserver {
                 RemoveObjectInterface removeObject,
                 int leavesAmount, int fruitsAmount, Random random) {
         super(topLeftCorner, Vector2.ZERO, null);
-        this.addObject = addObject;
-        this.removeObject = removeObject;
         trunkColor = INITIAL_TRUNK_COLOR;
-//        trunkRenderable = new RectangleRenderable(trunkColor);
         addTrunk(topLeftCorner, trunkWidth, trunkHeight, addObject);
         addLeaves(topLeftCorner, addObject, leavesAmount, random);
         addFruits(topLeftCorner, addObject, removeObject, fruitsAmount, random);
@@ -122,11 +112,6 @@ public class Tree extends GameObject implements JumpObserver {
 
     public Tree(Vector2 position) {
         super(position, null, null);
-
-//        Block trunkBlock = new Block(position, trunkRectangleRenderable);
-//        GameObject trunk = new GameObject();
-
-
     }
 
 }

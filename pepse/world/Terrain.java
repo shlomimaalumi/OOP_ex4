@@ -18,8 +18,6 @@ public class Terrain {
     private static final float INIT_GROUND_HEIGHT_RATIO = 2 / 3f;
     private static final Color BASE_GROUND_COLOR = new Color(212, 123, 74);
     private static final int DELTA_COLOR = 15;
-//    private static final RectangleRenderable rectangleRenderable =
-//            new RectangleRenderable(BASE_GROUND_COLOR);
     private final float groundHeightAtX0;
     private final Vector2 windowDimensions;
 
@@ -42,21 +40,21 @@ public class Terrain {
     }
 
     public List<Block> createInRange(int minX, int maxX) {
-        List<Block> blocks = new ArrayList<Block>();
-        minX = findClosestDivisibleLower(minX, Block.SIZE);
-        maxX = findClosestDivisibleHigher(maxX, Block.SIZE);
+        List<Block> blocks = new ArrayList<>();
+        minX = findClosestDivisibleLower(minX);
+        maxX = findClosestDivisibleHigher(maxX);
         for (int x = minX; x < maxX; x += Block.SIZE) {
             blocks.addAll(createGroundBlocksAt(x));
         }
         return blocks;
     }
 
-    private static int findClosestDivisibleLower(int x, int size) {
-        return x - (x % size);
+    private static int findClosestDivisibleLower(int x) {
+        return x - (x % Block.SIZE);
     }
 
-    private static int findClosestDivisibleHigher(int x, int size) {
-        return (x % size == 0) ? x : ((x / size) + 1) * size;
+    private static int findClosestDivisibleHigher(int x) {
+        return (x % Block.SIZE == 0) ? x : ((x / Block.SIZE) + 1) * Block.SIZE;
     }
 
     private Block createGroundBlocksAtX(int x, int y) {

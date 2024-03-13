@@ -1,6 +1,5 @@
 package pepse.world.trees;
 
-import danogl.collisions.GameObjectCollection;
 import danogl.util.Vector2;
 import pepse.world.*;
 
@@ -12,8 +11,6 @@ public class Flora {
     private static final int MIN_TRUNK_HEIGHT = 200;
     private static final int MAX_TRUNK_HEIGHT = 300;
     private final static int TRUNK_WIDTH = 30;
-    private final static int MIN_TRUNK_WIDTH = 25;
-    private final static int MAX_TRUNK_WIDTH = 55;
     private static final int MIN_LEAVES_AMOUNT = 20;
     private static final int MAX_LEAVES_AMOUNT = 30;
     private static final int MIN_FRUIT_AMOUNT = 2;

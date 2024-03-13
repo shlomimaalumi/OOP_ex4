@@ -2,7 +2,6 @@ package pepse.world.trees;
 
 import danogl.GameObject;
 import danogl.collisions.Collision;
-import danogl.collisions.GameObjectCollection;
 import danogl.collisions.Layer;
 import danogl.components.ScheduledTask;
 import danogl.gui.rendering.OvalRenderable;
@@ -21,10 +20,8 @@ public class Fruit extends GameObject {
     private static final float ENERGY_TO_ADD = 10;
     private static final int FIRST_COLOR = 0;
     private static final float CYCLE_TIME = 30f;
-    private static final int FRONT = 1;
 
-    //    private final static Color[] FRUITS_COLOR = new Color[]{Color.GREEN,Color.RED,Color.ORANGE,Color
-    //    .YELLOW};
+
     private static final OvalRenderable[] COLORS_CIRCLE = {
             new OvalRenderable(Color.ORANGE),
             new OvalRenderable(Color.PINK),
@@ -36,7 +33,6 @@ public class Fruit extends GameObject {
     private final AddObjectInterface addObjectCallBack;
     private final RemoveObjectInterface removeObjectCallBack;
 
-    private OvalRenderable fruitOval;
     private final Random random;
     private int colorIndex = FIRST_COLOR;
 

@@ -1,7 +1,6 @@
 package pepse.world;
 
 import danogl.GameObject;
-import danogl.gui.rendering.Renderable;
 import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 
@@ -11,7 +10,7 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class EnergyNumeric extends GameObject {
-    private Supplier<Float> energySupplier;
+    private final Supplier<Float> energySupplier;
     private final List<TextRenderable> textRenderables=new ArrayList<>();
     public EnergyNumeric(Vector2 topLeftCorner, Vector2 dimensions, Supplier<Float> energySupplier) {
         super(topLeftCorner, dimensions, new TextRenderable(String.valueOf(energySupplier.get())));

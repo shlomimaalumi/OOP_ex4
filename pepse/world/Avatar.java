@@ -1,23 +1,16 @@
 package pepse.world;
 
 import danogl.*;
-import danogl.collisions.GameObjectCollection;
-import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.AnimationRenderable;
 import danogl.gui.rendering.ImageRenderable;
-import danogl.gui.rendering.Renderable;
-import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 import pepse.JumpObserver;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.awt.event.KeyEvent;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 
 public class Avatar extends GameObject {
@@ -25,9 +18,6 @@ public class Avatar extends GameObject {
 
     public static final String AVATER_TAG = "avater";
 
-    public static final int IDLE_STATE = 0;
-    public static final int JUMP_NO_MOVE_STATE = 1;
-    public static final int RUN_STATE = 2;
 
     private static final String[] IDLE_PATHS = new String[]{"assets/idle_0.png",
             "assets/idle_1.png",
@@ -76,15 +66,11 @@ public class Avatar extends GameObject {
 
 
 
-    private List<JumpObserver> jumpObservers;
+    private final List<JumpObserver> jumpObservers;
     private final UserInputListener inputListener;
     private float energy;
-    private int state = IDLE_STATE;
-    private int imageCounter = 0;
     private static final int RIGHT = 1;
     private static final int LEFT = -1;
-    private static final int LOWER_BOUNDER = -1;
-    private static final int INITIAL_COUNTER = 0;
     private int lastDirection = RIGHT;
 
 
@@ -139,14 +125,9 @@ public class Avatar extends GameObject {
         }
         energyAndAnimationUpdate();
     }
-    public void energyNumeric(GameObjectCollection gameObjects) {
-        Supplier<Float> energyFunction = () -> energy;
-        gameObjects.addGameObject(new GameObject(new Vector2(20, 20), new Vector2(20, 20),
-                new TextRenderable(String.valueOf(energyFunction.get()))), Layer.FOREGROUND);
-    }
+
 
     private void energyAndAnimationUpdate() {
-        ImageRenderable[] listToRenere = null;
         if (getVelocity().equals(Vector2.ZERO)) {
             //we are not moving
             energy = Math.min(energy + IDLE_ENERGY, INIT_ENERGY);
@@ -218,10 +199,7 @@ public class Avatar extends GameObject {
     }
 
 
-//    private void setAnimation(List<ImageRenderable> animationList){
-//        this.renderer().setRenderable();
-//        renderer().setIsFlippedHorizontally();
-//    }
+
 
 
 }
