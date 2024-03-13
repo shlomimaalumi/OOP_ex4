@@ -30,7 +30,7 @@ public class Sun {
             GameObject sun = new GameObject(sunLocation,new Vector2(SUN_RADIUS, SUN_RADIUS), SUN_CIRCLE);
             sun.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
             sun.setTag(SUN_TAG);
-            new Transition<Float>(
+            new Transition<>(
                     sun, (Float angle) -> sun.setCenter(sunLocation.subtract(cycleCenterPoint).
                     rotated(angle).add(cycleCenterPoint)),
                     INIT_VALUE, FINAL_VALUE, Transition.LINEAR_INTERPOLATOR_FLOAT, cycleLength,

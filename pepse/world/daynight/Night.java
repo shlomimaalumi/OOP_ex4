@@ -28,7 +28,7 @@ public class Night {
             GameObject night = new GameObject(Vector2.ZERO, windowDimensions, rectangleRenderable);
             night.setTag(NIGHT_TAG);
             night.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
-            new Transition<Float>(
+            new Transition<>(
                     night,
                     night.renderer()::setOpaqueness,
                     INIT_OPAQUENESS,

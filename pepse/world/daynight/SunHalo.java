@@ -12,9 +12,7 @@ public class SunHalo {
     private static GameObject SUN_HALO_INSTANCE = null;
 
 
-    private static final float MIDDLE = 0.5f;
     private static final float HALO_RADIUS = 100f;
-    private static final float HORIZONAL = 0f;
 
     private static final Color SUN_HALO_COLOR = new Color(255, 255, 0, 20);
     private static final OvalRenderable SUN_HALO_CIRCLE = new OvalRenderable(SUN_HALO_COLOR);
