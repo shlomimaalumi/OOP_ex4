@@ -74,7 +74,19 @@ public class Leaf extends Block {
     }
 
     public void onJump() {
-        partOfCircle = FULL_CIRCLE / ROTATE_ANGLE;
+        timeToCircle = true;
+        float startAngle = this.renderer().getRenderableAngle();
+        float endAngle = startAngle + ADDITIONAL_ANGLE_LEAF_JUMP;
+        new Transition<>(
+                this,
+                this.renderer()::setRenderableAngle,
+                startAngle,
+                endAngle,
+                Transition.LINEAR_INTERPOLATOR_FLOAT,
+                LEAF_TRANSITION_TIME,
+                Transition.TransitionType.TRANSITION_ONCE,
+                () -> timeToCircle = false
+        );
     }
 
     @Override
