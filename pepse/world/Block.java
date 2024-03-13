@@ -4,6 +4,9 @@ import danogl.GameObject;
 import danogl.components.GameObjectPhysics;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+/**
+ * Represents a block in the game world.
+ */
 
 public class Block extends GameObject {
     public static final int SIZE = 30;

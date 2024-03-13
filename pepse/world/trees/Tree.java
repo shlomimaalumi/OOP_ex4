@@ -16,9 +16,6 @@ import java.util.Random;
 
 public class Tree extends GameObject implements JumpObserver {
 
-
-    //    private static final RectangleRenderable trunkRectangleRenderable = new RectangleRenderable
-    //    (TRUNK_COLOR);
     private static final float MAX_RIGHT_DIS_FROM_TREE = 100;
     private static final float MAX_LEFT_DIS_FROM_TREE = 100;
     private static final float MAX_UP_DIS_FROM_TREE = 100;
